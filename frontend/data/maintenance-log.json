@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ML-001",
+    "assetId": "group-2",
+    "date": "2024-12-05",
+    "technician": "R. Patel",
+    "work": "Roller replacement — excessive vibration detected on bearing 3",
+    "parts": ["Idler roller assembly x2", "SKF 6205-2RS bearing x2"]
+  },
+  {
+    "id": "ML-002",
+    "assetId": "group-0",
+    "date": "2024-11-20",
+    "technician": "J. Smith",
+    "work": "Bearing replacement — vibration RMS exceeded amber threshold",
+    "parts": ["SKF 6205-2RS x2", "Mobilux EP2 grease cartridge"]
+  },
+  {
+    "id": "ML-003",
+    "assetId": "group-3",
+    "date": "2024-10-18",
+    "technician": "J. Smith",
+    "work": "Bearing replacement — bearing temp reached 72°C during production run",
+    "parts": ["SKF 6205-2RS x2", "Mobilux EP2 grease cartridge"]
+  },
+  {
+    "id": "ML-004",
+    "assetId": "group-1",
+    "date": "2024-09-10",
+    "technician": "T. Nguyen",
+    "work": "Scheduled lubrication service — all rollers greased and inspected",
+    "parts": ["Mobilux EP2 grease cartridge x2"]
+  },
+  {
+    "id": "ML-005",
+    "assetId": "motor",
+    "date": "2024-08-22",
+    "technician": "A. Williams",
+    "work": "Winding resistance check, insulation test, bearing lubrication",
+    "parts": ["NSK 6312 bearing (standby)", "Shell Gadus S2 V220 grease"]
+  },
+  {
+    "id": "ML-006",
+    "assetId": "head-pulley",
+    "date": "2024-07-14",
+    "technician": "T. Nguyen",
+    "work": "Rubber lagging replacement — wear exceeded 40% of original thickness",
+    "parts": ["Diamond-pattern lagging sheet 600×2000mm", "Rema Tip Top adhesive"]
+  },
+  {
+    "id": "ML-007",
+    "assetId": "tail-pulley",
+    "date": "2024-07-14",
+    "technician": "T. Nguyen",
+    "work": "Alignment check and adjustment — belt tracking deviation 8mm",
+    "parts": ["Shim set 3mm"]
+  },
+  {
+    "id": "ML-008",
+    "assetId": "group-0",
+    "date": "2024-05-30",
+    "technician": "R. Patel",
+    "work": "Scheduled lubrication — routine 6-month service",
+    "parts": ["Mobilux EP2 grease cartridge"]
+  },
+  {
+    "id": "ML-009",
+    "assetId": "group-2",
+    "date": "2024-04-12",
+    "technician": "J. Smith",
+    "work": "Roller inspection — minor surface scoring noted, within tolerance",
+    "parts": []
+  },
+  {
+    "id": "ML-010",
+    "assetId": "motor",
+    "date": "2024-02-28",
+    "technician": "A. Williams",
+    "work": "Annual motor inspection — thermal imaging, vibration survey, coupling check",
+    "parts": ["Flexible coupling insert"]
+  },
+  {
+    "id": "ML-011",
+    "assetId": "group-1",
+    "date": "2024-02-15",
+    "technician": "T. Nguyen",
+    "work": "Bearing replacement — bearing 2 showed noise on ultrasound survey",
+    "parts": ["SKF 6205-2RS x1", "Mobilux EP2 grease cartridge"]
+  },
+  {
+    "id": "ML-012",
+    "assetId": "group-3",
+    "date": "2023-12-19",
+    "technician": "R. Patel",
+    "work": "Scheduled lubrication and visual inspection — no defects found",
+    "parts": ["Mobilux EP2 grease cartridge"]
+  }
+]

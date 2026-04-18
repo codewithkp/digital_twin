@@ -1,0 +1,79 @@
+{
+  "group-0": {
+    "name": "Idler Group 1",
+    "assetTag": "IDL-C01-001",
+    "installDate": "2022-03-15",
+    "lastMaintDate": "2024-11-20",
+    "lastMaintType": "Bearing replacement",
+    "operatingHours": 18420,
+    "bearingModel": "SKF 6205-2RS",
+    "bearingRatedLife": 25000,
+    "nextMaintDate": "2025-05-20"
+  },
+  "group-1": {
+    "name": "Idler Group 2",
+    "assetTag": "IDL-C01-002",
+    "installDate": "2022-03-15",
+    "lastMaintDate": "2024-09-10",
+    "lastMaintType": "Lubrication service",
+    "operatingHours": 19105,
+    "bearingModel": "SKF 6205-2RS",
+    "bearingRatedLife": 25000,
+    "nextMaintDate": "2025-03-10"
+  },
+  "group-2": {
+    "name": "Idler Group 3",
+    "assetTag": "IDL-C01-003",
+    "installDate": "2022-04-02",
+    "lastMaintDate": "2024-12-05",
+    "lastMaintType": "Roller replacement",
+    "operatingHours": 17890,
+    "bearingModel": "SKF 6205-2RS",
+    "bearingRatedLife": 25000,
+    "nextMaintDate": "2025-06-05"
+  },
+  "group-3": {
+    "name": "Idler Group 4",
+    "assetTag": "IDL-C01-004",
+    "installDate": "2022-04-02",
+    "lastMaintDate": "2024-10-18",
+    "lastMaintType": "Bearing replacement",
+    "operatingHours": 18750,
+    "bearingModel": "SKF 6205-2RS",
+    "bearingRatedLife": 25000,
+    "nextMaintDate": "2025-04-18"
+  },
+  "motor": {
+    "name": "Drive Motor",
+    "assetTag": "MTR-C01-001",
+    "installDate": "2021-11-08",
+    "lastMaintDate": "2024-08-22",
+    "lastMaintType": "Winding inspection + lubrication",
+    "operatingHours": 22340,
+    "bearingModel": "NSK 6312",
+    "bearingRatedLife": 30000,
+    "nextMaintDate": "2025-02-22"
+  },
+  "head-pulley": {
+    "name": "Head Pulley",
+    "assetTag": "PUL-C01-H01",
+    "installDate": "2021-11-08",
+    "lastMaintDate": "2024-07-14",
+    "lastMaintType": "Lagging replacement",
+    "operatingHours": 22340,
+    "bearingModel": "FAG 22220-E1",
+    "bearingRatedLife": 40000,
+    "nextMaintDate": "2025-07-14"
+  },
+  "tail-pulley": {
+    "name": "Tail Pulley",
+    "assetTag": "PUL-C01-T01",
+    "installDate": "2021-11-08",
+    "lastMaintDate": "2024-07-14",
+    "lastMaintType": "Alignment check",
+    "operatingHours": 22340,
+    "bearingModel": "FAG 22220-E1",
+    "bearingRatedLife": 40000,
+    "nextMaintDate": "2025-07-14"
+  }
+}
