@@ -14,7 +14,7 @@ const ConveyorScene = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-72 rounded-xl bg-slate-900 border border-slate-700 animate-pulse" />
+      <div className="w-full h-72 rounded-xl bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 animate-pulse" />
     ),
   },
 );
@@ -39,34 +39,34 @@ function GroupInfoPanel({
   const vibStatus   = healthForValue(vibration,   THRESHOLDS.vibrationRMS);
 
   return (
-    <div className="flex items-center justify-between gap-6 bg-slate-800 border border-slate-600 rounded-xl px-5 py-3">
+    <div className="flex items-center justify-between gap-6 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl px-5 py-3">
       <div className="shrink-0">
         <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-0.5">
           Idler Group {idx + 1}
         </p>
-        <p className="text-white font-semibold text-sm">
+        <p className="text-slate-900 dark:text-white font-semibold text-sm">
           Rollers {idx * 2 + 1} &amp; {idx * 2 + 2}
         </p>
       </div>
 
       <div className="flex gap-8 flex-1">
         <div>
-          <p className="text-slate-400 text-xs mb-1">Bearing Temp</p>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">Bearing Temp</p>
           <div className="flex items-center gap-2">
-            <span className="text-white font-mono text-sm">{bearingTemp.toFixed(1)} °C</span>
+            <span className="text-slate-900 dark:text-white font-mono text-sm">{bearingTemp.toFixed(1)} °C</span>
             <StatusBadge status={tempStatus} />
           </div>
         </div>
         <div>
-          <p className="text-slate-400 text-xs mb-1">Vibration RMS</p>
+          <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">Vibration RMS</p>
           <div className="flex items-center gap-2">
-            <span className="text-white font-mono text-sm">{vibration.toFixed(2)} mm/s</span>
+            <span className="text-slate-900 dark:text-white font-mono text-sm">{vibration.toFixed(2)} mm/s</span>
             <StatusBadge status={vibStatus} />
           </div>
         </div>
         <div>
-          <p className="text-slate-400 text-xs mb-1">Position</p>
-          <span className="text-slate-300 text-sm font-mono">
+          <p className="text-slate-500 dark:text-slate-400 text-xs mb-1">Position</p>
+          <span className="text-slate-600 dark:text-slate-300 text-sm font-mono">
             {idx === 0 ? 'Tail' : idx === 3 ? 'Head' : `Mid-${idx}`}
           </span>
         </div>
@@ -74,7 +74,7 @@ function GroupInfoPanel({
 
       <button
         onClick={onClose}
-        className="text-slate-400 hover:text-white text-xl leading-none shrink-0"
+        className="text-slate-400 hover:text-slate-700 dark:hover:text-white text-xl leading-none shrink-0"
         aria-label="Close"
       >
         ×

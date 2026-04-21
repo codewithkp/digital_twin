@@ -29,16 +29,16 @@ export function CsvUploader({ onFile }: CsvUploaderProps) {
       {...getRootProps()}
       className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors ${
         isDragActive
-          ? 'border-blue-400 bg-blue-900/20'
-          : 'border-slate-600 hover:border-slate-400 bg-slate-800/40'
+          ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
+          : 'border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-400 bg-white/60 dark:bg-slate-800/40'
       }`}
     >
       <input {...getInputProps()} />
       <div className="text-4xl mb-3">📂</div>
-      <p className="text-slate-300 font-medium">
+      <p className="text-slate-700 dark:text-slate-300 font-medium">
         {isDragActive ? 'Drop CSV here…' : 'Drag & drop a CSV file, or click to browse'}
       </p>
-      <p className="text-slate-500 text-xs mt-2">
+      <p className="text-slate-400 dark:text-slate-500 text-xs mt-2">
         Expected columns: timestamp, belt_speed, motor_current, bearing_temp_1–4,
         vibration_rms_1–4, tonnes_per_hour, alignment_deviation
       </p>

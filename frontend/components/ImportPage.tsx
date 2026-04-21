@@ -84,7 +84,6 @@ export function ImportPage() {
     const result = Papa.parse<CsvRow>(text, { header: true, skipEmptyLines: true });
     const frames = result.data.map(csvRowToFrame).filter((f) => !isNaN(f.sensors.beltSpeed));
     loadRows(frames, name);
-    // Feed first frame immediately so charts are not empty
     if (frames.length > 0) {
       addFrame(frames[0]);
       setConnectionStatus('connected');
@@ -106,7 +105,6 @@ export function ImportPage() {
     }
   }, [addFrame, setConnectionStatus, setCurrentIndex]);
 
-  // Map replay annotations → chart indices within last300Readings
   const chartAnnotations = useMemo((): ChartAnnotation[] => {
     const windowStart = currentIndex - last300Readings.length + 1;
     return annotations
@@ -122,7 +120,7 @@ export function ImportPage() {
   const hasData = rows.length > 0;
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white">
       <NavBar />
 
       <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -131,13 +129,13 @@ export function ImportPage() {
           <div className="space-y-4">
             <CsvUploader onFile={handleFile} />
             <div className="flex items-center gap-3">
-              <div className="flex-1 border-t border-slate-700" />
-              <span className="text-slate-600 text-sm">or</span>
-              <div className="flex-1 border-t border-slate-700" />
+              <div className="flex-1 border-t border-slate-300 dark:border-slate-700" />
+              <span className="text-slate-400 dark:text-slate-600 text-sm">or</span>
+              <div className="flex-1 border-t border-slate-300 dark:border-slate-700" />
             </div>
             <button
               onClick={handleLoadSample}
-              className="w-full py-3 rounded-xl border border-blue-600/50 bg-blue-900/20 hover:bg-blue-900/40 text-blue-400 font-medium transition-colors"
+              className="w-full py-3 rounded-xl border border-blue-600/50 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-medium transition-colors"
             >
               Load Sample Data (1 000 rows · 10-sec intervals · bearing degradation scenario)
             </button>
@@ -145,12 +143,12 @@ export function ImportPage() {
         ) : (
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-medium">{filename}</p>
+              <p className="text-slate-900 dark:text-white font-medium">{filename}</p>
               <p className="text-slate-500 text-sm">{rows.length.toLocaleString()} rows loaded</p>
             </div>
             <button
               onClick={() => loadRows([], '')}
-              className="text-slate-500 hover:text-white text-sm transition-colors"
+              className="text-slate-500 hover:text-slate-900 dark:hover:text-white text-sm transition-colors"
             >
               × Clear
             </button>

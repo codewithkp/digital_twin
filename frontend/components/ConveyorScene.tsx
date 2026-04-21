@@ -248,7 +248,7 @@ export interface ConveyorSceneProps {
 function ConveyorSchematic({ sensorData }: { sensorData: TelemetryFrame | null }) {
   const sensors = sensorData?.sensors;
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 rounded-xl border border-slate-700 p-4 gap-3">
+    <div className="w-full h-full flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 p-4 gap-3">
       <p className="text-slate-500 text-xs uppercase tracking-widest">2D Schematic — WebGL unavailable</p>
       <svg viewBox="0 0 400 80" className="w-full max-w-md" fill="none">
         <rect x="10" y="30" width="380" height="16" rx="4" fill="#374151" />

@@ -33,10 +33,10 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
   };
 
   return (
-    <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 space-y-3">
+    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-3">
       {/* Timeline scrubber */}
       <div className="flex items-center gap-3">
-        <span className="text-slate-500 text-[10px] font-mono whitespace-nowrap">
+        <span className="text-slate-500 dark:text-slate-500 text-[10px] font-mono whitespace-nowrap">
           {currentFrame ? new Date(currentFrame.timestamp).toLocaleString() : '--'}
         </span>
         <input
@@ -47,7 +47,7 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
           onChange={(e) => onSeek(parseInt(e.target.value))}
           className="flex-1 accent-blue-500 h-1.5"
         />
-        <span className="text-slate-500 text-[10px] font-mono whitespace-nowrap">
+        <span className="text-slate-500 dark:text-slate-500 text-[10px] font-mono whitespace-nowrap">
           {currentIndex}/{total}
         </span>
       </div>
@@ -83,7 +83,7 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
           <button
             onClick={stop}
             disabled={total === 0}
-            className="px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-700 hover:bg-slate-600 disabled:opacity-40 text-white transition-colors"
+            className="px-3 py-1.5 rounded-lg text-sm font-medium bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-40 text-slate-700 dark:text-white transition-colors"
           >
             ⏹
           </button>
@@ -96,7 +96,9 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
               key={s}
               onClick={() => setSpeed(s)}
               className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors ${
-                speed === s ? 'bg-blue-700 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                speed === s
+                  ? 'bg-blue-700 text-white'
+                  : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'
               }`}
             >
               {s}×
@@ -105,7 +107,7 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
         </div>
 
         {/* Progress bar */}
-        <div className="flex-1 min-w-[80px] bg-slate-700 rounded-full h-1.5">
+        <div className="flex-1 min-w-[80px] bg-slate-200 dark:bg-slate-700 rounded-full h-1.5">
           <div className="bg-blue-500 h-1.5 rounded-full transition-all" style={{ width: `${pct}%` }} />
         </div>
 
@@ -129,13 +131,13 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
               onChange={(e) => setAnnotLabel(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleMarkEvent()}
               placeholder="Annotation label…"
-              className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded px-3 py-1.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-blue-500"
             />
           </div>
           <select
             value={annotSev}
             onChange={(e) => setAnnotSev(e.target.value as Annotation['severity'])}
-            className="bg-slate-700 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:outline-none"
+            className="bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded px-2 py-1.5 text-sm text-slate-900 dark:text-white focus:outline-none"
           >
             <option value="info">Info</option>
             <option value="warning">Warning</option>
@@ -153,7 +155,7 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
 
       {/* Annotations list */}
       {annotations.length > 0 && (
-        <div className="border-t border-slate-700 pt-3 space-y-1">
+        <div className="border-t border-slate-200 dark:border-slate-700 pt-3 space-y-1">
           <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Annotations</p>
           {annotations.map((ann) => (
             <div key={ann.id} className="flex items-center gap-2 text-xs">
@@ -161,10 +163,10 @@ export function ReplayControls({ onSeek }: ReplayControlsProps) {
                 className="w-1.5 h-1.5 rounded-full shrink-0"
                 style={{ background: SEV_COLOR[ann.severity] }}
               />
-              <span className="text-slate-400 font-mono">
+              <span className="text-slate-500 font-mono">
                 {new Date(ann.timestamp).toLocaleTimeString()}
               </span>
-              <span className="text-slate-300">{ann.label}</span>
+              <span className="text-slate-700 dark:text-slate-300">{ann.label}</span>
             </div>
           ))}
         </div>

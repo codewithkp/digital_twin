@@ -12,18 +12,12 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { TelemetryFrame, THRESHOLDS } from '@shared/types';
-
-const TOOLTIP_STYLE = {
-  contentStyle: { background: '#1e293b', border: 'none', borderRadius: 8, fontSize: 11 },
-  labelStyle: { color: '#64748b' },
-};
-const AXIS_TICK = { fontSize: 10, fill: '#64748b' };
-const GRID = { strokeDasharray: '3 3', stroke: '#1e293b' };
+import { useTheme } from '@/contexts/ThemeContext';
 
 function ChartContainer({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-slate-800 rounded-xl p-4">
-      <p className="text-xs text-slate-400 uppercase tracking-wide mb-3">{title}</p>
+    <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-transparent">
+      <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">{title}</p>
       {children}
     </div>
   );
@@ -41,7 +35,21 @@ interface TrendChartsProps {
 }
 
 export function TrendCharts({ readings, annotations = [] }: TrendChartsProps) {
-  // Build chart data arrays once
+  const { isDark } = useTheme();
+
+  const tooltipStyle = {
+    contentStyle: {
+      background: isDark ? '#1e293b' : '#ffffff',
+      border: isDark ? 'none' : '1px solid #e2e8f0',
+      borderRadius: 8,
+      fontSize: 11,
+      color: isDark ? '#f1f5f9' : '#1e293b',
+    },
+    labelStyle: { color: isDark ? '#64748b' : '#94a3b8' },
+  };
+  const axisTick = { fontSize: 10, fill: isDark ? '#64748b' : '#94a3b8' };
+  const grid = { strokeDasharray: '3 3', stroke: isDark ? '#1e293b' : '#e2e8f0' };
+
   const beltMotorData = readings.map((f, i) => ({
     i,
     t: new Date(f.timestamp).toLocaleTimeString(),
@@ -93,36 +101,36 @@ export function TrendCharts({ readings, annotations = [] }: TrendChartsProps) {
       />
     ));
 
+  const axisLabelFill = isDark ? '#64748b' : '#94a3b8';
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      {/* Chart 1: Belt Speed + Motor Current (dual axis) */}
       <ChartContainer title="Belt Speed &amp; Motor Current">
         <ResponsiveContainer width="100%" height={160}>
           <ComposedChart data={beltMotorData}>
-            <CartesianGrid {...GRID} />
+            <CartesianGrid {...grid} />
             <XAxis dataKey="i" hide />
-            <YAxis yAxisId="l" tick={AXIS_TICK} width={32} label={{ value: 'm/s', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 10 }} />
-            <YAxis yAxisId="r" orientation="right" tick={AXIS_TICK} width={32} label={{ value: 'A', angle: 90, position: 'insideRight', fill: '#64748b', fontSize: 10 }} />
-            <Tooltip {...TOOLTIP_STYLE} />
+            <YAxis yAxisId="l" tick={axisTick} width={32} label={{ value: 'm/s', angle: -90, position: 'insideLeft', fill: axisLabelFill, fontSize: 10 }} />
+            <YAxis yAxisId="r" orientation="right" tick={axisTick} width={32} label={{ value: 'A', angle: 90, position: 'insideRight', fill: axisLabelFill, fontSize: 10 }} />
+            <Tooltip {...tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <ReferenceLine yAxisId="l" y={THRESHOLDS.beltSpeed.amber} stroke="#f59e0b" strokeDasharray="3 3" strokeOpacity={0.6} />
             <ReferenceLine yAxisId="r" y={THRESHOLDS.motorCurrent.amber} stroke="#f59e0b" strokeDasharray="3 3" strokeOpacity={0.6} />
             <ReferenceLine yAxisId="r" y={THRESHOLDS.motorCurrent.red}   stroke="#ef4444" strokeDasharray="3 3" strokeOpacity={0.6} />
-            <Line yAxisId="l" dataKey="beltSpeed"    name="Belt Speed (m/s)"    stroke="#60a5fa" {...lineProps} />
+            <Line yAxisId="l" dataKey="beltSpeed"    name="Belt Speed (m/s)"   stroke="#60a5fa" {...lineProps} />
             <Line yAxisId="r" dataKey="motorCurrent" name="Motor Current (A)"  stroke="#a78bfa" {...lineProps} />
             {annotationLines('l')}
           </ComposedChart>
         </ResponsiveContainer>
       </ChartContainer>
 
-      {/* Chart 2: Bearing Temperatures */}
       <ChartContainer title="Bearing Temperatures (°C)">
         <ResponsiveContainer width="100%" height={160}>
           <LineChart data={bearingData}>
-            <CartesianGrid {...GRID} />
+            <CartesianGrid {...grid} />
             <XAxis dataKey="i" hide />
-            <YAxis tick={AXIS_TICK} width={32} />
-            <Tooltip {...TOOLTIP_STYLE} />
+            <YAxis tick={axisTick} width={32} />
+            <Tooltip {...tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <ReferenceLine y={THRESHOLDS.bearingTemp.amber} stroke="#f59e0b" strokeDasharray="3 3" strokeOpacity={0.6} />
             <ReferenceLine y={THRESHOLDS.bearingTemp.red}   stroke="#ef4444" strokeDasharray="3 3" strokeOpacity={0.6} />
@@ -135,14 +143,13 @@ export function TrendCharts({ readings, annotations = [] }: TrendChartsProps) {
         </ResponsiveContainer>
       </ChartContainer>
 
-      {/* Chart 3: Vibration RMS */}
       <ChartContainer title="Vibration RMS (mm/s)">
         <ResponsiveContainer width="100%" height={160}>
           <LineChart data={vibData}>
-            <CartesianGrid {...GRID} />
+            <CartesianGrid {...grid} />
             <XAxis dataKey="i" hide />
-            <YAxis tick={AXIS_TICK} width={32} />
-            <Tooltip {...TOOLTIP_STYLE} />
+            <YAxis tick={axisTick} width={32} />
+            <Tooltip {...tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <ReferenceLine y={THRESHOLDS.vibrationRMS.amber} stroke="#f59e0b" strokeDasharray="3 3" strokeOpacity={0.6} />
             <ReferenceLine y={THRESHOLDS.vibrationRMS.red}   stroke="#ef4444" strokeDasharray="3 3" strokeOpacity={0.6} />
@@ -155,15 +162,14 @@ export function TrendCharts({ readings, annotations = [] }: TrendChartsProps) {
         </ResponsiveContainer>
       </ChartContainer>
 
-      {/* Chart 4: Throughput + Alignment (dual axis) */}
       <ChartContainer title="Throughput &amp; Alignment">
         <ResponsiveContainer width="100%" height={160}>
           <ComposedChart data={tphAlignData}>
-            <CartesianGrid {...GRID} />
+            <CartesianGrid {...grid} />
             <XAxis dataKey="i" hide />
-            <YAxis yAxisId="l" tick={AXIS_TICK} width={36} label={{ value: 't/h', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 10 }} />
-            <YAxis yAxisId="r" orientation="right" tick={AXIS_TICK} width={32} label={{ value: 'mm', angle: 90, position: 'insideRight', fill: '#64748b', fontSize: 10 }} />
-            <Tooltip {...TOOLTIP_STYLE} />
+            <YAxis yAxisId="l" tick={axisTick} width={36} label={{ value: 't/h', angle: -90, position: 'insideLeft', fill: axisLabelFill, fontSize: 10 }} />
+            <YAxis yAxisId="r" orientation="right" tick={axisTick} width={32} label={{ value: 'mm', angle: 90, position: 'insideRight', fill: axisLabelFill, fontSize: 10 }} />
+            <Tooltip {...tooltipStyle} />
             <Legend wrapperStyle={{ fontSize: 11 }} />
             <ReferenceLine yAxisId="l" y={THRESHOLDS.tonnesPerHour.amber} stroke="#f59e0b" strokeDasharray="3 3" strokeOpacity={0.6} />
             <ReferenceLine yAxisId="l" y={THRESHOLDS.tonnesPerHour.red}   stroke="#ef4444" strokeDasharray="3 3" strokeOpacity={0.6} />

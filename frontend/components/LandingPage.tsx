@@ -45,9 +45,9 @@ function BackendStatus() {
   }, []);
 
   const map = {
-    checking: { dot: 'bg-slate-500 animate-pulse', text: 'Checking backend…',     color: 'text-slate-400' },
-    ok:       { dot: 'bg-green-400 animate-pulse',  text: 'Backend connected',      color: 'text-green-400' },
-    error:    { dot: 'bg-red-500',                  text: 'Backend unreachable',    color: 'text-red-400'   },
+    checking: { dot: 'bg-slate-500 animate-pulse', text: 'Checking backend…',  color: 'text-slate-500 dark:text-slate-400' },
+    ok:       { dot: 'bg-green-400 animate-pulse',  text: 'Backend connected',  color: 'text-green-600 dark:text-green-400' },
+    error:    { dot: 'bg-red-500',                  text: 'Backend unreachable', color: 'text-red-600 dark:text-red-400'    },
   }[status];
 
   return (
@@ -60,19 +60,19 @@ function BackendStatus() {
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex flex-col">
       <NavBar />
 
       {/* Hero */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-20 md:py-32 flex-1">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-600/40 bg-amber-900/20 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-600/40 bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs font-semibold uppercase tracking-widest mb-8">
           ⚠ Prototype — Simulated Data
         </div>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 bg-gradient-to-br from-white to-slate-400 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 bg-gradient-to-br from-slate-900 to-slate-500 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
           Steel Plant Digital Twin
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mb-4">
+        <p className="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mb-4">
           Prototype v1 — Real-time conveyor belt health monitoring, 3D asset visualisation, and historical data replay.
         </p>
 
@@ -83,13 +83,13 @@ export function LandingPage() {
         <div className="flex flex-wrap gap-4 justify-center">
           <Link
             href="/dashboard"
-            className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base transition-colors shadow-lg shadow-blue-900/40"
+            className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-base transition-colors shadow-lg shadow-blue-900/20 dark:shadow-blue-900/40"
           >
             Launch Dashboard →
           </Link>
           <Link
             href="/import"
-            className="px-8 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-base transition-colors border border-slate-700"
+            className="px-8 py-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-base transition-colors border border-slate-300 dark:border-slate-700"
           >
             Import Data
           </Link>
@@ -102,12 +102,12 @@ export function LandingPage() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className={`bg-slate-900 border rounded-2xl p-6 flex flex-col gap-4 transition-colors ${f.accent}`}
+              className={`bg-white dark:bg-slate-900 border rounded-2xl p-6 flex flex-col gap-4 transition-colors ${f.accent}`}
             >
               <div className="text-4xl">{f.icon}</div>
               <div>
-                <h3 className="text-white font-semibold text-lg mb-2">{f.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="text-slate-900 dark:text-white font-semibold text-lg mb-2">{f.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{f.desc}</p>
               </div>
               <Link
                 href={f.href}
@@ -121,7 +121,7 @@ export function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 px-6 py-4 text-center text-slate-600 text-xs">
+      <footer className="border-t border-slate-200 dark:border-slate-800 px-6 py-4 text-center text-slate-400 dark:text-slate-600 text-xs">
         Steel Plant Digital Twin — Prototype v1 &nbsp;·&nbsp; Built with Next.js 16 + FastAPI
       </footer>
     </div>

@@ -13,7 +13,7 @@ import { NavBar } from './NavBar';
 
 const ConveyorScene = dynamic(() => import('./ConveyorScene').then((m) => m.ConveyorScene), {
   ssr: false,
-  loading: () => <div className="w-full h-52 bg-slate-900 rounded-xl animate-pulse" />,
+  loading: () => <div className="w-full h-52 bg-slate-200 dark:bg-slate-900 rounded-xl animate-pulse" />,
 });
 
 function sparkline(readings: { value: number }[]) {
@@ -33,7 +33,6 @@ export function DashboardPage() {
 
   const sensors = latestReading?.sensors;
 
-  // Derive per-sensor sparkline arrays from last300Readings
   const derived = useMemo(() => {
     const beltSpark    = last300Readings.map((f) => ({ value: f.sensors.beltSpeed }));
     const motorSpark   = last300Readings.map((f) => ({ value: f.sensors.motorCurrent }));
@@ -65,7 +64,7 @@ export function DashboardPage() {
   const vibMMs     = derived.vibSpark.map(minMax);
 
   return (
-    <div className="h-screen bg-slate-900 text-white flex flex-col">
+    <div className="h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white flex flex-col">
       <NavBar />
 
       {/* Dev toolbar subheader — DevToolbar returns null in production */}
@@ -74,10 +73,10 @@ export function DashboardPage() {
       </div>
 
       <div className="flex flex-1 min-h-0">
-        {/* ── Sidebar — hidden on mobile, visible at md (768px+) ─────────── */}
-        <aside className="hidden md:flex w-72 xl:w-80 border-r border-slate-700 flex-col overflow-hidden shrink-0">
+        {/* ── Sidebar ─────────────────────────────────────────────────── */}
+        <aside className="hidden md:flex w-72 xl:w-80 border-r border-slate-200 dark:border-slate-700 flex-col overflow-hidden shrink-0">
           {/* Asset Tree */}
-          <div className="p-4 border-b border-slate-700">
+          <div className="p-4 border-b border-slate-200 dark:border-slate-700">
             <AssetTree alerts={activeAlerts} />
           </div>
 
@@ -87,7 +86,7 @@ export function DashboardPage() {
               Active Alerts ({activeAlerts.length})
             </p>
             {activeAlerts.length === 0 ? (
-              <p className="text-slate-600 text-xs">All sensors within thresholds.</p>
+              <p className="text-slate-500 dark:text-slate-600 text-xs">All sensors within thresholds.</p>
             ) : (
               activeAlerts.map((alert) => (
                 <AlertCard
@@ -100,7 +99,7 @@ export function DashboardPage() {
           </div>
         </aside>
 
-        {/* ── Main ───────────────────────────────────────────────────────── */}
+        {/* ── Main ────────────────────────────────────────────────────── */}
         <main className="flex-1 overflow-y-auto p-5 space-y-5">
           {/* 3D Conveyor Scene */}
           <div className="h-52">
@@ -115,7 +114,6 @@ export function DashboardPage() {
           <section>
             <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-3">Sensor Readings</p>
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
-              {/* Scalar sensors */}
               <SensorCard
                 label="Belt Speed"
                 value={sensors?.beltSpeed ?? 0}
@@ -162,7 +160,6 @@ export function DashboardPage() {
                 color="#fb923c"
               />
 
-              {/* Bearing Temps */}
               {[0, 1, 2, 3].map((i) => {
                 const val = sensors ? (sensors.bearingTemp as number[])[i] : 0;
                 return (
@@ -181,7 +178,6 @@ export function DashboardPage() {
                 );
               })}
 
-              {/* Vibration RMS */}
               {[0, 1, 2, 3].map((i) => {
                 const val = sensors ? (sensors.vibrationRMS as number[])[i] : 0;
                 return (
