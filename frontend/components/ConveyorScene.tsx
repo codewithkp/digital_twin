@@ -1,10 +1,11 @@
 'use client';
 import { useRef, useMemo, useCallback, useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import type { TelemetryFrame, HealthStatus } from '@shared/types';
 import { healthForValue, THRESHOLDS } from '@shared/types';
+import { useTheme } from '@/contexts/ThemeContext';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -133,6 +134,16 @@ function MotorHousing({ position }: { position: [number, number, number] }) {
   );
 }
 
+// ─── Scene background (must live inside <Canvas>) ────────────────────────────
+
+function SceneBackground({ isDark }: { isDark: boolean }) {
+  const { scene } = useThree();
+  useEffect(() => {
+    scene.background = new THREE.Color(isDark ? '#0f172a' : '#f1f5f9');
+  }, [isDark, scene]);
+  return null;
+}
+
 // ─── Scene content (must live inside <Canvas>) ────────────────────────────────
 
 // Centre X of each idler group (average of pair positions)
@@ -143,9 +154,10 @@ interface SceneProps {
   onComponentClick: (id: string) => void;
   controlsRef: React.RefObject<unknown>;
   flaggedIds: string[];
+  isDark: boolean;
 }
 
-function Scene({ sensorData, onComponentClick, controlsRef, flaggedIds }: SceneProps) {
+function Scene({ sensorData, onComponentClick, controlsRef, flaggedIds, isDark }: SceneProps) {
   const sensors = sensorData?.sensors;
   const beltSpeed = sensors?.beltSpeed ?? 1.2;
 
@@ -158,8 +170,9 @@ function Scene({ sensorData, onComponentClick, controlsRef, flaggedIds }: SceneP
 
   return (
     <>
+      <SceneBackground isDark={isDark} />
       {/* Lighting */}
-      <ambientLight intensity={0.4} />
+      <ambientLight intensity={isDark ? 0.4 : 0.75} />
       <directionalLight
         position={[10, 15, 8]}
         intensity={1.6}
@@ -272,6 +285,7 @@ function ConveyorSchematic({ sensorData }: { sensorData: TelemetryFrame | null }
 export function ConveyorScene({ sensorData, onComponentClick, flaggedIds = [] }: ConveyorSceneProps) {
   const [webGLAvailable, setWebGLAvailable] = useState(true);
   const controlsRef = useRef<unknown>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     try {
@@ -296,7 +310,7 @@ export function ConveyorScene({ sensorData, onComponentClick, flaggedIds = [] }:
   }
 
   return (
-    <div className="relative w-full h-72 rounded-xl overflow-hidden bg-slate-900 border border-slate-700">
+    <div className="relative w-full h-72 rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700">
       <Canvas
         camera={{ position: [12, 10, 18], fov: 45, near: 0.1, far: 120 }}
         shadows
@@ -306,17 +320,18 @@ export function ConveyorScene({ sensorData, onComponentClick, flaggedIds = [] }:
           onComponentClick={onComponentClick}
           controlsRef={controlsRef}
           flaggedIds={flaggedIds}
+          isDark={isDark}
         />
       </Canvas>
 
       <button
         onClick={resetView}
-        className="absolute top-3 right-3 bg-slate-700/80 hover:bg-slate-600 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-lg transition-colors"
+        className="absolute top-3 right-3 bg-white/80 dark:bg-slate-700/80 hover:bg-white dark:hover:bg-slate-600 backdrop-blur-sm text-slate-700 dark:text-white text-xs px-3 py-1.5 rounded-lg transition-colors border border-slate-300/60 dark:border-transparent"
       >
         Reset View
       </button>
 
-      <p className="absolute bottom-2 left-3 text-slate-600 text-[10px] pointer-events-none">
+      <p className="absolute bottom-2 left-3 text-slate-500 dark:text-slate-600 text-[10px] pointer-events-none">
         Click an idler group to inspect · Scroll to zoom · Drag to orbit
       </p>
     </div>
